@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This fork must be built with Oracle JDK 17, available from https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html.
+
 > [!TIP]
 > Great things happen when testers connect — [Join the Maestro Community](https://maestrodev.typeform.com/to/FelIEe8A)
 
@@ -130,5 +133,4 @@ Pricing for Maestro Cloud is completely transparent and can be found on the [pri
 ```
   Built with ❤️ by Maestro.dev
 ```
-
 
