@@ -742,7 +742,11 @@ class AndroidDriver(
             if (appId != null) {
                 waitForWindowToSettle(appId, initialHierarchy, timeoutMs)
             } else {
-                ScreenshotUtils.waitForAppToSettle(initialHierarchy, this, timeoutMs)
+                val settleTimeout = timeoutMs?.toLong() ?: SCREEN_SETTLE_TIMEOUT_MS
+                LOGGER.info("Waiting for animation to end with timeout $settleTimeout")
+                val didFinishOnTime = waitUntilScreenIsStatic(settleTimeout)
+
+                if (didFinishOnTime) null else ScreenshotUtils.waitForAppToSettle(initialHierarchy, this, timeoutMs)
             }
         }
     }
@@ -1270,5 +1274,7 @@ class AndroidDriver(
         private const val TOAST_CLASS_NAME = "android.widget.Toast"
         private const val SCREENSHOT_DIFF_THRESHOLD = 0.005
         private const val CHUNK_SIZE = 1024L * 1024L * 3L
+
+        private const val SCREEN_SETTLE_TIMEOUT_MS: Long = 3000
     }
 }
