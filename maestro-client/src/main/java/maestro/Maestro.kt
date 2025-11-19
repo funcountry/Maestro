@@ -385,11 +385,11 @@ class Maestro(
 
     private fun waitUntilVisible(element: UiElement): ViewHierarchy {
         var hierarchy = ViewHierarchy(TreeNode())
-        repeat(10) {
+        repeat(20) {
             hierarchy = viewHierarchy()
             if (!hierarchy.isVisible(element.treeNode)) {
                 LOGGER.info("Element is not visible yet. Waiting.")
-                MaestroTimer.sleep(MaestroTimer.Reason.WAIT_UNTIL_VISIBLE, 1000)
+                MaestroTimer.sleep(MaestroTimer.Reason.WAIT_UNTIL_VISIBLE, 200)
             } else {
                 LOGGER.info("Element became visible.")
                 return hierarchy
@@ -613,7 +613,7 @@ class Maestro(
         private val LOGGER = LoggerFactory.getLogger(Maestro::class.java)
 
         private const val SCREENSHOT_DIFF_THRESHOLD = 0.005 // 0.5%
-        private const val ANIMATION_TIMEOUT_MS: Long = 15000
+        private const val ANIMATION_TIMEOUT_MS: Long = 5000
 
         fun ios(driver: Driver, openDriver: Boolean = true): Maestro {
             if (openDriver) {

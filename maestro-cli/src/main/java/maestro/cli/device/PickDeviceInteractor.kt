@@ -122,6 +122,6 @@ fun main() {
 
     println("Ready")
     while (!Thread.interrupted()) {
-        Thread.sleep(1000)
+        Thread.sleep(300)
     }
 }

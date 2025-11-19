@@ -90,7 +90,7 @@ object MaestroSessionManager {
         val heartbeatFuture = executor.scheduleAtFixedRate(
             {
                 try {
-                    Thread.sleep(1000) // Add a 1-second delay here for fixing race condition
+                    Thread.sleep(200) // shorter pad to avoid slowing sessions
                     SessionStore.heartbeat(sessionId, selectedDevice.platform)
                 } catch (e: Exception) {
                     logger.error("Failed to record heartbeat", e)

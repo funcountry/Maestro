@@ -130,7 +130,7 @@ class AndroidDriver(
             }
 
             instrumentationSession?.close()
-            Thread.sleep(100)
+            Thread.sleep(40)
         }
         throw AndroidInstrumentationSetupFailure("Maestro instrumentation could not be initialized")
     }
@@ -161,7 +161,7 @@ class AndroidDriver(
                 dadb.open("tcp:$hostPort").close()
                 return
             }
-            Thread.sleep(100)
+            Thread.sleep(40)
         }
 
         throw AndroidDriverTimeoutException("Maestro Android driver did not start up in time  ---  emulator [ ${emulatorName} ] & port  [ dadb.open( tcp:${hostPort} ) ]")
@@ -321,7 +321,7 @@ class AndroidDriver(
             }
 
             dadb.shell("input keyevent $intCode")
-            Thread.sleep(300)
+            Thread.sleep(60)
         }
     }
 
@@ -392,7 +392,7 @@ class AndroidDriver(
             LOGGER.error("Failed to get view hierarchy: ${status.description}", throwable)
 
             if (attempt > 0) {
-                MaestroTimer.sleep(MaestroTimer.Reason.BUFFER, 1000L)
+                MaestroTimer.sleep(MaestroTimer.Reason.BUFFER, 150L)
                 return callViewHierarchy(attempt - 1)
             }
             throw throwable
@@ -514,14 +514,14 @@ class AndroidDriver(
     override fun backPress() {
         metrics.measured("operation", mapOf("command" to "backPress")) {
             dadb.shell("input keyevent 4")
-            Thread.sleep(300)
+            Thread.sleep(60)
         }
     }
 
     override fun hideKeyboard() {
         metrics.measured("operation", mapOf("command" to "hideKeyboard")) {
             dadb.shell("input keyevent 4") // 'Back', which dismisses the keyboard before handing over to navigation
-            Thread.sleep(300)
+            Thread.sleep(60)
             waitForAppToSettle(null, null)
         }
     }
@@ -559,7 +559,7 @@ class AndroidDriver(
                 override fun close() {
                     dadb.shell("killall -INT screenrecord") // Ignore exit code
                     future.get()
-                    Thread.sleep(3000)
+                    Thread.sleep(500)
                     dadb.pull(out, deviceScreenRecordingPath)
                 }
             }
@@ -1275,6 +1275,6 @@ class AndroidDriver(
         private const val SCREENSHOT_DIFF_THRESHOLD = 0.005
         private const val CHUNK_SIZE = 1024L * 1024L * 3L
 
-        private const val SCREEN_SETTLE_TIMEOUT_MS: Long = 3000
+        private const val SCREEN_SETTLE_TIMEOUT_MS: Long = 1000
     }
 }
