@@ -231,7 +231,7 @@ class Service(
      */
     private fun refreshAccessibilityCache() {
         try {
-            uiDevice.waitForIdle(500)
+            uiDevice.waitForIdle(50)
             uiAutomation.serviceInfo = null
         } catch (nullExp: NullPointerException) {
             /* no-op */
